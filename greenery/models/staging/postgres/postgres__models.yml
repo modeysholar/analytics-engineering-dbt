@@ -1,0 +1,23 @@
+version: 2
+
+models:
+  - name: stg_postgres__events
+    description: "Contains information about each sessions on the greenery website"
+
+  - name: stg_postgres__users
+    description: "Contains information about users on the greenery website"
+
+  - name: stg_postgres__addresses
+    description: "Contains information about customer address"
+
+  - name: stg_postgres__orders
+    description: "Contains information about customer orders"
+
+  - name: stg_postgres__products
+    description: "Contains information about products in the company"
+
+  - name: stg_postgres__order_items
+    description: "Contains information about ordered items"
+
+  - name: stg_postgres__promos
+    description: "Contains information about the discounts on orders placed"
