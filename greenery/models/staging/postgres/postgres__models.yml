@@ -3,21 +3,187 @@ version: 2
 models:
   - name: stg_postgres__events
     description: "Contains information about each sessions on the greenery website"
+    columns:
+      - name: session_id
+        description: "uniquely identifies the session created"
+        tests:
+          - not_null
+          - unique
+
+      - name: user_id
+        description: "uniquely identifies the users"
+        tests:
+          - relationships:
+              to: ref('stg_postgres__users')
+              field: user_id
+
+      - name: page_url
+        description: "this is the url page"
+
+      - name: created_at
+        description: "this is the time when the session is created"
+
+      - name: event_type
+        description: "categorises the event"
+        tests:
+         - accepted_values:
+            values:
+              - checkout
+              - package_shipped
+              - add_to_cart
+              - page_view
+
+      - name: order_id
+        description: "unique identifier for orders"
+
+      - name: product_id 
+        description: "uniquely identifies the products"
+     
 
   - name: stg_postgres__users
     description: "Contains information about users on the greenery website"
+    columns:
+      - name: user_id
+        description: "uniquely identifies the users"
+        tests:
+          - not_null
+          - unique
+
+      - name: first_name
+        description: "users first name"
+      - name: last_name
+        description: "users last name"
+      - name: email
+        description: "users email"
+      - name: phone_number
+        description: "users phone number"
+      - name: created_at
+        description: "date when the user account was created"
+        tests:
+          - not_null
+
+      - name: updated_at
+        description: "date when the user account was last updated"
+        tests:
+          - not_null
+
+      - name: address_id
+        description: "users address unique identifier"
 
   - name: stg_postgres__addresses
     description: "Contains information about customer address"
+    columns:
+      - name: address_id
+        description: "unique address identifier"
+        tests:
+          - not_null
+          - unique
+
+      - name: address
+        description: "users addresses"
+
+      - name: zipcode
+        description: "user zipcode"
+        tests:
+         - not_null
+
+      - name: state
+        description: "users state"
+
+      - name: country 
+        description: "users country"
 
   - name: stg_postgres__orders
     description: "Contains information about customer orders"
+    columns:
+      - name: order_id
+        description: "unique order identifier"
+        tests:
+          - not_null
+          - unique
+
+      - name: user_id
+        description: "unique users identifier"
+        tests:
+          - not_null
+
+      - name: promo_id
+        description: "unique promo identifier"
+
+      - name: address_id
+        description: "unique address identifier"
+
+      - name: created_at
+        description: "date order was created"
+        tests:
+          - not_null
+
+      - name: order_cost
+        description: "cost of order"
+        tests:
+          - not_null
+
+      - name: shipping_cost
+        description: "cost of shipping"
+
+      - name: order_total
+        description: "total number of order"
+
+      - name: tracking_id
+        description: "shipment tracking identifier"
+
+      - name: shipping_service
+        description: "name of shipping company"
+
+      - name: estimated_delivery_at
+        description: "estimated delivery date"
+
+      - name: delivered_at
+        description: "delivery date"
+
+      - name: status
+        description: "delivery status"
 
   - name: stg_postgres__products
     description: "Contains information about products in the company"
+    columns:
+          - name: product_id
+            description: "unique product identifier"
+            tests:
+              - not_null
+              - unique
+          
+          - name: name
+            description: "unique product name"
+          - name: price
+            description: "unique product price"
+          - name: inventory
+            description: "unique product inventory"
 
   - name: stg_postgres__order_items
     description: "Contains information about ordered items"
+    columns:
+          - name: order_id
+            description: "unique order identifier"
+            tests:
+              - not_null
+          
+          - name: product_id
+            description: "unique product identifier"
+
+          - name: quantity
+            description: "unique product quantity"
 
   - name: stg_postgres__promos
     description: "Contains information about the discounts on orders placed"
+    columns:
+          - name: promo_id
+            description: "unique promo identifier"
+            tests:
+              - not_null
+          
+          - name: discount
+            description: "amount discount"
+
+          - name: status
+            description: "order status"

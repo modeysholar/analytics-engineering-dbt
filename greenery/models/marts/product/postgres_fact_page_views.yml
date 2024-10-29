@@ -1,0 +1,23 @@
+version: 2
+
+models:
+
+  - name: fact_page_views
+    description: "summarizes the page view events"
+    columns:
+      - name: session_id
+        description: "unique event identifier"
+        tests:
+          - not_null
+
+      - name: product_id
+        description: "unique product identifier"
+        tests:
+          - not_null
+
+      - name: user_id
+        description: "unique user identifier"
+        tests:
+          - not_null
+  
+  

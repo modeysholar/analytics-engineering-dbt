@@ -1,0 +1,14 @@
+version: 2
+
+models:
+
+  - name: fact_orders
+    description: "table summarises the orders made by users"
+    columns:
+      - name: user_id
+        description: "unique user identifier"
+        tests:
+          - not_null
+    
+      - name: orders
+        description: "number of orders"

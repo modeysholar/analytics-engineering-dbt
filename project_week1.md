@@ -13,4 +13,4 @@ Answer: 1 purchase -: 25
         3 purchases -: 71
 
 On average, how many unique sessions do we have per hour
-Answer: 61.25 hrs
+Answer: 61.25 sessions per hour
