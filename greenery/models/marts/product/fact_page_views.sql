@@ -1,5 +1,3 @@
-{%- set events = ['page_views', 'add_to_carts', 'checkouts', 'packages_shipped']%}
-
 with event as
 (
     select 
@@ -24,6 +22,10 @@ session_timing_agg as
 from {{ ref('int_session_timing')}} 
 )
 
+{% set event_types = dbt_utils.get_column_values(
+    table=ref('stg_postgres__events'), 
+    column='event_type') %}
+
 select  
     e.session_id
     ,e.user_id
@@ -32,15 +34,10 @@ select
     , s.session_ended_at
     , datediff('minute', s.session_started_at, s.session_ended_at) as session_length_minutes
 
-    --  {%- for event in events %}
-    --     , sum(case when event_type = '{{ events }}' then 1 else 0 end) as {{ events }}
-    --     {%- endfor %}
-    , sum(case when event_type = 'page_views' then 1 else 0 end) as page_views
-    , sum(case when event_type = 'add_to_carts' then 1 else 0 end) as add_to_carts
-     , sum(case when event_type = 'checkouts' then 1 else 0 end) as checkouts
-     , sum(case when event_type = 'packages_shipped' then 1 else 0 end) as packages_shipped
+     {%- for event_type in events_types %}
+        , {{sum_of('e.event_type', event_type)}} as {{ event_type }}
+        {%- endfor %}
     
-  
 
 from event e
 left join order_items oi

@@ -1,0 +1,16 @@
+models:
+
+  - name: conversion_rate
+    description: "calculates the total conversion rate, to find out how many sessions leads to a purchase"
+    columns:
+      - name: total_sessions
+      - name: sessions_with_purchase
+      - name: coversion_ratio
+
+  - name: conversion_rate_by_product
+    description: "calculates the conversion rate,for each product type"
+    columns:
+      - name: product_id
+      - name: total_sessions
+      - name: sessions_with_purchase
+      - name: coversion_ratio

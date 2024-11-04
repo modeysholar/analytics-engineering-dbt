@@ -1,0 +1,10 @@
+
+macros:
+  - name: sum_of
+    description: Aggregation function that sums a column with specific value
+    arguments:
+      - name: col_name
+        description: Name of the column to be summed
+      - name: col_value
+        description: Values of column to be summed by
+      
