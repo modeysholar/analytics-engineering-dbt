@@ -34,7 +34,7 @@ select
     , s.session_ended_at
     , datediff('minute', s.session_started_at, s.session_ended_at) as session_length_minutes
 
-     {%- for event_type in events_types %}
+     {%- for event_type in event_types %}
         , {{sum_of('e.event_type', event_type)}} as {{ event_type }}
         {%- endfor %}
     
